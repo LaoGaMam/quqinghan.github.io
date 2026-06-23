@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>武器库V3 完整卡片样式</title>
+    <style>
+        body {
+            background: #f5f5f5;
+            padding: 20px;
+            font-family: "Microsoft Yahei", sans-serif;
+        }
+        .weapon-card {
+            width: 300px;
+            background: #fff;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 5px solid #8b0000;
+            box-shadow: 0 2px 6px #ddd;
+            transition: 0.2s;
+        }
+        .weapon-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px #ccc;
+        }
+        .type {
+            color: #999;
+            font-size: 14px;
+        }
+        .harm-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            background: #c41e3a;
+            color: #fff;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>古代兵器库 - 详情卡片版</h1>
+    <div id="container"></div>
+
+    <script>
+        let weaponArr = [
+            {name:"长枪", type:"长柄武器", harm:"高", desc:"远距离穿刺，克制重甲"},
+            {name:"大刀", type:"重武器", harm:"极高", desc:"劈砍伤害强，攻速慢"},
+            {name:"长剑", type:"轻兵器", harm:"中", desc:"灵活轻巧，适合侠客"},
+            {name:"弓箭", type:"远程武器", harm:"中", desc:"先手输出，怕近身"}
+        ];
+        let html = "";
+
+        for(let i = 0; i < weaponArr.length; i++){
+            let item = weaponArr[i];
+            html += `
+                <div class="weapon-card">
+                    <h3>${item.name}</h3>
+                    <div class="type">分类：${item.type}</div>
+                    <p>杀伤力：<span class="harm-tag">${item.harm}</span></p>
+                    <p>介绍：${item.desc}</p>
+                </div>
+            `;
+        }
+        document.getElementById("container").innerHTML = html;
+    </script>
+</body>
+</html>
