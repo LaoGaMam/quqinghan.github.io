@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>笔记本 1.0</title>
+    <style>
+    </style>
+</head>
+<body>
+    <!-- 提示弹窗 -->
+    <div class="toast" id="toast">锲而不舍，金石可镂</div>
+
+    <div class="container">
+        <h1 id="appTitle">我的第一课</h1>
+        <div id="noteDisplay">⭐ 今天学习了JavaScript基础</div>
+        <h2>悟已往之不谏，知来者之可追</h2>
+    </div>
+
+    <script>
+        // 显示提示弹窗，2秒后自动消失
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 2000);
+    </script>
+</body>
+</html>
