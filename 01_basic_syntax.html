@@ -2,35 +2,40 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>阶段1：JS基础语法练习</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阶段4：DOM基础操作</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 100px;
+            border: 1px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
 </head>
 <body>
-    <h3>知识点：变量、数据类型、if判断、for循环、算术运算符</h3>
+    <h2 id="title">原始标题</h2>
+    <div class="box" id="boxDom">我是盒子</div>
+
+    <h3>知识点：getElementById、innerText、style修改样式</h3>
     <script>
-        // 1.变量与基础数据类型
-        let name = "JS初学者";
-        const grade = 1;
-        let score = 88.5;
-        let isPass = true;
-        console.log("姓名：", name, "年级：", grade, "分数：", score, "是否及格：", isPass);
+        // 1. 通过id获取DOM元素
+        let title = document.getElementById("title");
+        let box = document.getElementById("boxDom");
 
-        // 2.分支判断 if else
-        if (score >= 60) {
-            console.log("考试及格");
-        } else {
-            console.log("考试不及格");
+        // 判空容错：防止id写错获取null报错
+        if (title) {
+            // 修改元素纯文本内容
+            title.innerText = "JS修改后的标题";
         }
-
-        // 3.for循环 打印1-10
-        console.log("循环输出1~10：");
-        for(let i = 1; i <= 10; i++){
-            console.log(i);
+        if (box) {
+            // JS修改样式规则：短横线样式转驼峰命名
+            box.style.backgroundColor = "#eee";
+            box.style.color = "#f00";
+            box.style.fontSize = "18px";
         }
-
-        // 4.简单运算
-        let a = 10, b = 3;
-        console.log("加法：", a + b);
-        console.log("取余：", a % b);
     </script>
 </body>
 </html>
