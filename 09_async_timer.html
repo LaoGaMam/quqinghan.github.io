@@ -2,28 +2,41 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>阶段9：定时器异步</title>
+    <style>
+        #timeText {
+            font-size: 24px;
+            color: #d92121;
+        }
+    </style>
 </head>
 <body>
     <p id="timeText">倒计时：10</p>
     <h3>知识点：同步异步、setInterval、setTimeout、清除定时器clearInterval</h3>
     <script>
-        let count = 10;
+        // 获取元素
         let text = document.getElementById("timeText");
-        let timer = setInterval(function(){
+        // 元素不存在直接终止，防止报错
+        if (!text) return;
+
+        let count = 10;
+        // 开启循环定时器
+        let timer = setInterval(function () {
             count--;
             text.innerText = "倒计时：" + count;
-            if(count <= 0){
+            if (count <= 0) {
                 clearInterval(timer);
                 text.innerText = "倒计时结束";
             }
-        }, 1000)
+        }, 1000);
 
-        // 延时执行
-        setTimeout(()=>{
+        // 3秒延时定时器
+        setTimeout(() => {
             console.log("3秒后执行这段异步代码");
-        }, 3000)
+        }, 3000);
 
+        // 同步代码最先打印
         console.log("同步代码先执行");
     </script>
 </body>
