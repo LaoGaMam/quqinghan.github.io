@@ -2,7 +2,19 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>阶段7：本地存储练习</title>
+    <style>
+        input, button {
+            padding: 5px 8px;
+            font-size: 16px;
+            margin: 5px;
+        }
+        #result {
+            color: #0066cc;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <input type="text" id="storageInput" placeholder="输入要保存的文字">
@@ -18,23 +30,34 @@
         let res = document.getElementById("result");
 
         // 页面加载读取本地存储
-        window.onload = function(){
+        window.onload = function () {
             let data = localStorage.getItem("userText");
-            res.innerText = data || "无数据";
+            res.innerText = data ?? "无数据";
         }
 
-        // 保存
-        save.addEventListener("click", ()=>{
-            localStorage.setItem("userText", inp.value);
-            res.innerText = inp.value;
+        // 保存按钮点击事件
+        save.addEventListener("click", () => {
+            // 去除首尾空格
+            let content = inp.value.trim();
+            if (content === "") {
+                res.innerText = "不能保存空内容！";
+                res.style.color = "red";
+                return;
+            }
+            // 存入本地存储
+            localStorage.setItem("userText", content);
+            res.innerText = content;
+            res.style.color = "#0066cc";
         })
 
-        // 清空
-        clear.addEventListener("click", ()=>{
+        // 清空按钮点击事件
+        clear.addEventListener("click", () => {
             localStorage.removeItem("userText");
             res.innerText = "无数据";
+            res.style.color = "#0066cc";
             inp.value = "";
         })
     </script>
 </body>
+</html>
 </html>
