@@ -11,13 +11,14 @@
             box-sizing: border-box;
         }
         body {
-            background: #fff;
+            background: #f5f5f5;
             padding: 30px;
             font-family: "微软雅黑";
         }
         h1 {
             text-align: center;
             margin-bottom: 40px;
+            color: #222;
         }
         .wrap {
             max-width: 1200px;
@@ -30,11 +31,18 @@
             border: 1px solid #222;
             padding: 18px;
             border-radius: 6px;
+            background: #fff;
+            box-shadow: 2px 2px 6px #ddd;
         }
         .weapon-card h3 {
             margin-bottom: 10px;
             border-bottom: 1px solid #999;
             padding-bottom: 6px;
+            color: #1a5298;
+        }
+        .weapon-card p {
+            line-height: 1.6;
+            color: #444;
         }
         .search-box {
             width: 400px;
@@ -46,10 +54,26 @@
             flex: 1;
             padding: 8px;
             font-size: 16px;
+            border: 1px solid #aaa;
+            border-radius: 4px;
         }
         #searchBtn {
             padding: 8px 16px;
             cursor: pointer;
+            border: none;
+            background: #1a5298;
+            color: #fff;
+            border-radius: 4px;
+        }
+        #searchBtn:hover {
+            background: #144077;
+        }
+        .empty-tip {
+            text-align: center;
+            font-size: 18px;
+            color: #999;
+            grid-column: 1 / -1;
+            padding: 40px 0;
         }
     </style>
 </head>
@@ -70,7 +94,7 @@
             {name:"AWM狙击枪",desc:"高精度远距离栓动狙击武器，多用于精准远距离打击。"},
             {name:"M4A1卡宾枪",desc:"美军主流装备，模块化改装空间大，后坐力低。"},
             {name:"RPG-7火箭筒",desc:"便携式反坦克武器，可打击装甲与工事目标。"}
-        ]
+        ];
 
         const container = document.getElementById("container");
         const searchInp = document.getElementById("search");
@@ -79,30 +103,47 @@
         // 2.渲染武器卡片函数
         function render(list) {
             container.innerHTML = "";
+            // 无匹配数据时展示提示
+            if (list.length === 0) {
+                container.innerHTML = `<div class="empty-tip">未查询到匹配的武器信息</div>`;
+                return;
+            }
             list.forEach(item => {
                 let div = document.createElement("div");
                 div.className = "weapon-card";
                 div.innerHTML = `
                     <h3>${item.name}</h3>
                     <p>${item.desc}</p>
-                `
+                `;
                 container.appendChild(div);
-            })
+            });
         }
 
         // 初始渲染全部武器
         render(weaponList);
 
-        // 3.搜索筛选功能（点击事件+数组filter）
-        searchBtn.addEventListener("click", function(){
+        // 封装搜索逻辑
+        function doSearch() {
             let key = searchInp.value.trim();
-            if(!key) {
+            // 输入为空，展示全部数据
+            if (!key) {
                 render(weaponList);
                 return;
             }
+            // 模糊匹配筛选
             let filterArr = weaponList.filter(item => item.name.includes(key));
             render(filterArr);
-        })
+        }
+
+        // 3.点击搜索按钮
+        searchBtn.addEventListener("click", doSearch);
+
+        // 新增：回车快捷键搜索，提升使用体验
+        searchInp.addEventListener("keydown", function (e) {
+            if (e.key === "Enter") {
+                doSearch();
+            }
+        });
     </script>
 </body>
 </html>
