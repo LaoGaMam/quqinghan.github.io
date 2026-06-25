@@ -2,7 +2,21 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+    <!-- 移动端适配标签，标准网页必备 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>阶段5：事件与表单</title>
+    <style>
+        /* 简单美化界面 */
+        input, button {
+            padding: 6px 10px;
+            font-size: 16px;
+            margin-right: 8px;
+        }
+        #showText {
+            font-size: 18px;
+            color: #222;
+        }
+    </style>
 </head>
 <body>
     <input type="text" id="username" placeholder="请输入姓名">
@@ -11,15 +25,27 @@
 
     <h3>知识点：addEventListener、点击事件、输入框取值、表单交互</h3>
     <script>
+        // 获取DOM元素
         let input = document.getElementById("username");
         let btn = document.getElementById("submitBtn");
         let show = document.getElementById("showText");
 
-        // 点击事件
-        btn.addEventListener("click", function(){
-            let val = input.value;
-            show.innerText = "你输入的内容：" + val;
-        })
+        // 判空防止获取不到元素报错
+        if (btn && input && show) {
+            // 绑定点击事件
+            btn.addEventListener("click", function () {
+                // 获取输入框的值，去除首尾空格
+                let val = input.value.trim();
+                // 判断是否为空
+                if (val === "") {
+                    show.innerText = "提示：请输入姓名！";
+                    show.style.color = "red";
+                } else {
+                    show.innerText = "你输入的内容：" + val;
+                    show.style.color = "#000";
+                }
+            })
+        }
     </script>
 </body>
 </html>
