@@ -2,32 +2,47 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>阶段2：数组对象基础</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阶段5：事件与表单</title>
+    <style>
+        input, button {
+            padding: 6px 10px;
+            font-size: 16px;
+            margin-right: 8px;
+        }
+        #showText {
+            font-size: 18px;
+            color: #222;
+        }
+    </style>
 </head>
 <body>
-    <h3>知识点：数组push/pop/splice、对象创建、遍历for in</h3>
+    <input type="text" id="username" placeholder="请输入姓名">
+    <button id="submitBtn">点击提交</button>
+    <p id="showText"></p>
+
+    <h3>知识点：addEventListener、点击事件、输入框取值、表单交互</h3>
     <script>
-        // 数组操作
-        let fruitArr = ["苹果", "香蕉", "橙子"];
-        fruitArr.push("葡萄"); // 末尾添加
-        fruitArr.pop(); // 删除最后一个
-        console.log("数组结果：", fruitArr);
+        // 获取DOM元素
+        let input = document.getElementById("username");
+        let btn = document.getElementById("submitBtn");
+        let show = document.getElementById("showText");
 
-        // 自定义对象
-        let student = {
-            id: 1001,
-            name: "小明",
-            age: 18,
-            sayHi: function(){
-                console.log("大家好，我是" + this.name);
-            }
-        }
-        console.log(student.name);
-        student.sayHi();
-
-        // 对象遍历
-        for(let key in student){
-            console.log(key, student[key]);
+        // 判空防止获取不到元素报错
+        if (btn && input && show) {
+            // 绑定点击事件
+            btn.addEventListener("click", function () {
+                // 获取输入框的值，去除首尾空格
+                let val = input.value.trim();
+                // 判断是否为空
+                if (val === "") {
+                    show.innerText = "提示：请输入姓名！";
+                    show.style.color = "red";
+                } else {
+                    show.innerText = "你输入的内容：" + val;
+                    show.style.color = "#000";
+                }
+            })
         }
     </script>
 </body>
