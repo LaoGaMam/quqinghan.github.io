@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>阶段6：简易计算器</title>
     <style>
         #calc {
@@ -9,16 +10,19 @@
             border: 2px solid #333;
             padding: 10px;
         }
-        input {
+        #inputNum {
+            box-sizing: border-box;
             width: 100%;
             margin-bottom: 10px;
             height: 30px;
             font-size: 18px;
+            text-align: right;
         }
         button {
             width: 50px;
             height: 40px;
             margin: 2px;
+            font-size: 16px;
         }
     </style>
 </head>
@@ -40,18 +44,33 @@
         let btns = document.querySelectorAll("button");
 
         btns.forEach(item => {
-            item.addEventListener("click", function(){
+            item.addEventListener("click", function () {
                 let text = this.innerText;
-                if(text === "C"){
+                // 清空按钮
+                if (text === "C") {
                     input.value = "";
-                }else if(text === "="){
-                    try{
-                        input.value = eval(input.value);
-                    }catch{
+                } 
+                // 等于号计算
+                else if (text === "=") {
+                    try {
+                        // 禁止空表达式计算
+                        if (!input.value) return;
+                        // eval运算，捕获错误
+                        let result = eval(input.value);
+                        // 限制小数位数，避免超长小数
+                        input.value = Number(result.toFixed(6));
+                    } catch (err) {
                         input.value = "输入错误";
                     }
-                }else{
-                    input.value += text;
+                } 
+                // 数字与运算符拼接
+                else {
+                    // 若上一次是错误提示，点击数字先清空
+                    if (input.value === "输入错误") {
+                        input.value = text;
+                    } else {
+                        input.value += text;
+                    }
                 }
             })
         })
